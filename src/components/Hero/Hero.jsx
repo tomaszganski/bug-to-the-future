@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import useSurveyStore from '../../store/surveyStore';
 import styles from './Hero.module.css';
+import cricketFlourImg from '../../assets/cricket-flour-2.png';
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -92,19 +93,12 @@ const Hero = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         >
-          <div className={styles.visualCard}>
-            <div className={styles.bowlIllustration}>
-              <div className={styles.bowl}>
-                <div className={styles.bowlContent}>
-                  <span className={styles.emoji}>🥗</span>
-                </div>
-              </div>
-              <div className={styles.floatingElements}>
-                <span className={styles.floatingEmoji} style={{ '--delay': '0s', '--x': '-40px', '--y': '-20px' }}>🥑</span>
-                <span className={styles.floatingEmoji} style={{ '--delay': '0.5s', '--x': '50px', '--y': '-30px' }}>🥕</span>
-                <span className={styles.floatingEmoji} style={{ '--delay': '1s', '--x': '30px', '--y': '40px' }}>🌿</span>
-              </div>
-            </div>
+          <div className={styles.imageWrapper}>
+            <img 
+              src={cricketFlourImg} 
+              alt="Cricket flour products - sustainable protein source" 
+              className={styles.heroImage}
+            />
           </div>
         </motion.div>
       </div>
