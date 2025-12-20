@@ -1,0 +1,141 @@
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import useSurveyStore from '../../store/surveyStore';
+import styles from './Closing.module.css';
+
+const Closing = () => {
+  const { t } = useTranslation();
+  const reset = useSurveyStore((state) => state.reset);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
+  const handleRestart = () => {
+    reset();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <section className={styles.closing}>
+      <div className={styles.background}>
+        <div className={styles.confetti} />
+        <div className={styles.gradientOrb1} />
+        <div className={styles.gradientOrb2} />
+      </div>
+
+      <motion.div
+        className={styles.container}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.div
+          className={styles.successIcon}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.5, type: 'spring', stiffness: 200 }}
+        >
+          <span>🎉</span>
+        </motion.div>
+
+        <motion.h2
+          className={styles.title}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          {t('closing.title')}
+        </motion.h2>
+
+        <motion.p
+          className={styles.subtitle}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          {t('closing.subtitle')}
+        </motion.p>
+
+        <motion.p
+          className={styles.description}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+        >
+          {t('closing.description')}
+        </motion.p>
+
+        <motion.div
+          className={styles.shareCard}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+        >
+          <h3 className={styles.shareTitle}>{t('closing.shareTitle')}</h3>
+          <p className={styles.shareText}>{t('closing.shareText')}</p>
+          
+          <button
+            className={styles.copyButton}
+            onClick={handleCopyLink}
+          >
+            {copied ? (
+              <>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+                {t('closing.copied')}
+              </>
+            ) : (
+              <>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                {t('closing.copyLink')}
+              </>
+            )}
+          </button>
+        </motion.div>
+
+        <motion.button
+          className={styles.restartButton}
+          onClick={handleRestart}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+        >
+          {t('closing.restart')}
+        </motion.button>
+      </motion.div>
+    </section>
+  );
+};
+
+export default Closing;

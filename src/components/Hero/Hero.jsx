@@ -1,0 +1,126 @@
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import useSurveyStore from '../../store/surveyStore';
+import styles from './Hero.module.css';
+
+const Hero = () => {
+  const { t } = useTranslation();
+  const startSurvey = useSurveyStore((state) => state.startSurvey);
+
+  return (
+    <section className={styles.hero}>
+      <div className={styles.background}>
+        <div className={styles.gradientOrb1} />
+        <div className={styles.gradientOrb2} />
+        <div className={styles.gradientOrb3} />
+        <div className={styles.pattern} />
+      </div>
+
+      <div className={styles.container}>
+        <motion.div
+          className={styles.content}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+        >
+          <motion.div
+            className={styles.badge}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
+            <span className={styles.badgeIcon}>🌱</span>
+            <span>Białko przyszłości</span>
+          </motion.div>
+
+          <motion.h1
+            className={styles.title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            {t('hero.title')}
+          </motion.h1>
+
+          <motion.p
+            className={styles.subtitle}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            {t('hero.subtitle')}
+          </motion.p>
+
+          <motion.p
+            className={styles.description}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+          >
+            {t('hero.description')}
+          </motion.p>
+
+          <motion.div
+            className={styles.ctaWrapper}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          >
+            <button className={styles.ctaButton} onClick={startSurvey}>
+              <span>{t('hero.cta')}</span>
+              <svg
+                className={styles.ctaArrow}
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+            <p className={styles.ctaSubtext}>{t('hero.ctaSubtext')}</p>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          className={styles.visual}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+        >
+          <div className={styles.visualCard}>
+            <div className={styles.bowlIllustration}>
+              <div className={styles.bowl}>
+                <div className={styles.bowlContent}>
+                  <span className={styles.emoji}>🥗</span>
+                </div>
+              </div>
+              <div className={styles.floatingElements}>
+                <span className={styles.floatingEmoji} style={{ '--delay': '0s', '--x': '-40px', '--y': '-20px' }}>🥑</span>
+                <span className={styles.floatingEmoji} style={{ '--delay': '0.5s', '--x': '50px', '--y': '-30px' }}>🥕</span>
+                <span className={styles.floatingEmoji} style={{ '--delay': '1s', '--x': '30px', '--y': '40px' }}>🌿</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      <motion.div
+        className={styles.scrollIndicator}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+      >
+        <div className={styles.scrollMouse}>
+          <div className={styles.scrollWheel} />
+        </div>
+      </motion.div>
+    </section>
+  );
+};
+
+export default Hero;
