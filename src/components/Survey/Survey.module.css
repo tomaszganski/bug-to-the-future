@@ -6,11 +6,11 @@
   justify-content: center;
   padding: 2rem;
   position: relative;
-  background: linear-gradient(180deg, var(--bg-light) 0%, var(--sandy-beige) 100%);
+  background: linear-gradient(180deg, var(--warm-sand) 0%, var(--soft-wood) 100%);
 }
 
 .surveyPost {
-  background: linear-gradient(180deg, var(--sandy-beige) 0%, var(--mint) 30%, var(--bg-light) 100%);
+  background: linear-gradient(180deg, var(--soft-wood) 0%, var(--warm-sand) 50%, var(--off-white) 100%);
 }
 
 .container {
@@ -41,14 +41,14 @@
 
 .progressTrack {
   height: 6px;
-  background: rgba(163, 231, 194, 0.3);
+  background: var(--soft-wood);
   border-radius: 3px;
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--light-green), var(--mint));
+  background: var(--warm-gold);
   border-radius: 3px;
 }
 
@@ -114,14 +114,14 @@
 }
 
 .scaleOptions .optionButton:hover {
-  background: var(--sandy-beige);
-  border-color: var(--light-green);
+  background: var(--warm-sand);
+  border-color: var(--warm-gold);
 }
 
 .scaleOptions .optionButton.selected {
-  background: var(--mint);
-  border-color: var(--light-green);
-  box-shadow: var(--shadow-glow);
+  background: rgba(242, 200, 121, 0.3);
+  border-color: var(--warm-gold);
+  box-shadow: 0 0 20px rgba(242, 200, 121, 0.3);
 }
 
 .optionValue {
@@ -159,14 +159,14 @@
 }
 
 .singleOptions .optionButton:hover {
-  background: var(--sandy-beige);
-  border-color: var(--light-green);
+  background: var(--warm-sand);
+  border-color: var(--warm-gold);
 }
 
 .singleOptions .optionButton.selected {
-  background: var(--mint);
-  border-color: var(--light-green);
-  box-shadow: var(--shadow-glow);
+  background: rgba(242, 200, 121, 0.3);
+  border-color: var(--warm-gold);
+  box-shadow: 0 0 20px rgba(242, 200, 121, 0.3);
 }
 
 .singleOptions .optionLabel {
@@ -197,17 +197,17 @@
 .navButtonBack {
   background: transparent;
   color: var(--text-muted);
-  border: 2px solid var(--light-green);
+  border: 2px solid var(--soft-wood);
 }
 
 .navButtonBack:hover {
-  background: var(--light-green);
-  color: var(--text-primary);
+  background: var(--soft-wood);
+  color: var(--deep-grain);
 }
 
 .navButtonNext {
-  background: var(--accent-gold);
-  color: var(--text-primary);
+  background: var(--warm-gold);
+  color: var(--deep-grain);
   margin-left: auto;
 }
 

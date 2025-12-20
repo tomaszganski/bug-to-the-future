@@ -6,7 +6,7 @@
   padding: 2rem;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, var(--bg-light) 0%, var(--mint) 50%, var(--light-green) 100%);
+  background: linear-gradient(180deg, var(--warm-sand) 0%, var(--soft-wood) 50%, var(--warm-sand) 100%);
 }
 
 .background {
@@ -18,12 +18,12 @@
   position: absolute;
   inset: 0;
   background-image: 
-    radial-gradient(circle at 20% 30%, var(--accent-gold) 2px, transparent 2px),
-    radial-gradient(circle at 80% 20%, var(--light-green) 3px, transparent 3px),
-    radial-gradient(circle at 40% 70%, var(--mint) 2px, transparent 2px),
-    radial-gradient(circle at 70% 60%, var(--accent-gold) 2px, transparent 2px),
-    radial-gradient(circle at 10% 80%, var(--light-green) 3px, transparent 3px),
-    radial-gradient(circle at 90% 80%, var(--mint) 2px, transparent 2px);
+    radial-gradient(circle at 20% 30%, var(--warm-gold) 2px, transparent 2px),
+    radial-gradient(circle at 80% 20%, var(--cricket-brown) 3px, transparent 3px),
+    radial-gradient(circle at 40% 70%, var(--soft-wood) 2px, transparent 2px),
+    radial-gradient(circle at 70% 60%, var(--warm-gold) 2px, transparent 2px),
+    radial-gradient(circle at 10% 80%, var(--cricket-brown) 3px, transparent 3px),
+    radial-gradient(circle at 90% 80%, var(--soft-wood) 2px, transparent 2px);
   background-size: 100px 100px;
   opacity: 0.6;
   animation: confettiFloat 20s linear infinite;
@@ -43,7 +43,7 @@
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 212, 121, 0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(242, 200, 121, 0.4) 0%, transparent 70%);
   top: 10%;
   right: 10%;
   animation: float 15s ease-in-out infinite;
@@ -144,8 +144,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--accent-gold);
-  color: var(--text-primary);
+  background: var(--warm-gold);
+  color: var(--deep-grain);
   font-size: 1rem;
   font-weight: 600;
   padding: 0.875rem 1.5rem;

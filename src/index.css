@@ -1,33 +1,57 @@
 :root {
-  /* Primary Colors */
-  --mint: #B9F5D8;
-  --light-green: #A3E7C2;
-  --sandy-beige: #F7F1E1;
-  --accent-gold: #FFD479;
+  /* ========================================
+     BASE COLORS (define hex values here)
+     ======================================== */
+  
+  /* Natural & Earthy */
+  --warm-sand: #EDE6D6;
+  --soft-wood: #C8B59C;
+  --cricket-brown: #7A5C3E;
+  --deep-grain: #4E3A28;
+  --warm-muted: #9A8B7A;
+  
+  /* Tech / Future */
+  --soft-cyan: #8FD6E8;
+  --fresh-mint: #AEE6D8;
+  
+  /* Accent & Neutral */
+  --warm-gold: #F2C879;
+  --off-white: #FAFAF8;
+  
+  /* ========================================
+     SEMANTIC COLORS (use base colors)
+     ======================================== */
   
   /* Text Colors */
-  --text-primary: #2D3B36;
-  --text-secondary: #4A5D54;
-  --text-muted: #7A8F85;
+  --text-primary: var(--deep-grain);
+  --text-secondary: var(--cricket-brown);
+  --text-muted: var(--warm-muted);
   
   /* Backgrounds */
-  --bg-light: #FDFCFA;
-  --bg-section: #F9FAF9;
+  --bg-light: var(--warm-sand);
+  --bg-section: var(--off-white);
+  --bg-card: var(--soft-wood);
   
   /* Shadows */
-  --shadow-soft: 0 4px 20px rgba(45, 59, 54, 0.08);
-  --shadow-medium: 0 8px 32px rgba(45, 59, 54, 0.12);
-  --shadow-glow: 0 0 40px rgba(185, 245, 216, 0.4);
+  --shadow-soft: 0 4px 20px rgba(78, 58, 40, 0.08);
+  --shadow-medium: 0 8px 32px rgba(78, 58, 40, 0.12);
+  --shadow-glow: 0 0 40px rgba(143, 214, 232, 0.4);
   
-  /* Typography */
+  /* ========================================
+     TYPOGRAPHY
+     ======================================== */
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
   
-  /* Spacing */
+  /* ========================================
+     SPACING & LAYOUT
+     ======================================== */
   --section-padding: clamp(3rem, 8vw, 6rem);
   --container-max: 1100px;
   
-  /* Transitions */
+  /* ========================================
+     TRANSITIONS
+     ======================================== */
   --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -78,13 +102,13 @@ img {
 
 /* Custom Selection */
 ::selection {
-  background: var(--mint);
-  color: var(--text-primary);
+  background: var(--soft-cyan);
+  color: var(--deep-grain);
 }
 
 /* Smooth Focus States */
 :focus-visible {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--warm-gold);
   outline-offset: 2px;
 }
 
@@ -94,14 +118,14 @@ img {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--sandy-beige);
+  background: var(--warm-sand);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--light-green);
+  background: var(--soft-wood);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--mint);
+  background: var(--cricket-brown);
 }

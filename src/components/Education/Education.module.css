@@ -6,7 +6,7 @@
   padding: 2rem;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, var(--mint) 0%, var(--light-green) 50%, var(--sandy-beige) 100%);
+  background: linear-gradient(180deg, var(--warm-sand) 0%, var(--soft-wood) 50%, var(--warm-sand) 100%);
 }
 
 .background {
@@ -30,7 +30,7 @@
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--warm-gold) 0%, transparent 70%);
   bottom: -100px;
   right: -50px;
   opacity: 0.3;
@@ -78,8 +78,8 @@
 }
 
 .progressDot.active {
-  background: var(--accent-gold);
-  box-shadow: 0 0 10px var(--accent-gold);
+  background: var(--warm-gold);
+  box-shadow: 0 0 10px var(--warm-gold);
 }
 
 .progressText {
@@ -107,7 +107,7 @@
 .slideIcon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, var(--mint), var(--light-green));
+  background: linear-gradient(135deg, var(--warm-gold), var(--soft-wood));
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -158,8 +158,8 @@
 }
 
 .navButtonNext {
-  background: var(--accent-gold);
-  color: var(--text-primary);
+  background: var(--warm-gold);
+  color: var(--deep-grain);
   font-weight: 600;
 }
 
