@@ -1,18 +1,11 @@
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSurveyStore from '../../store/surveyStore';
+import { AUTO_ADVANCE_DELAY, PRE_QUESTIONS } from '../../constants/survey';
 import Question from './Question';
 import ProgressBar from './ProgressBar';
 import styles from './Survey.module.css';
-
-const PRE_QUESTIONS = [
-  { id: 'openness', type: 'scale' },
-  { id: 'knowledge', type: 'scale' },
-  { id: 'environment', type: 'scale' },
-  { id: 'insectProtein', type: 'scale' },
-  { id: 'tryProduct', type: 'scale' },
-  { id: 'barriers', type: 'single' },
-];
 
 const PreSurvey = () => {
   const { t } = useTranslation();
@@ -29,20 +22,29 @@ const PreSurvey = () => {
   const progress = getPreSurveyProgress();
   const currentQuestion = PRE_QUESTIONS[currentQuestionIndex];
   const currentAnswer = preAnswers[currentQuestion.id];
+  const isLastQuestion = currentQuestionIndex === PRE_QUESTIONS.length - 1;
 
-  const handleNext = () => {
-    if (currentQuestionIndex < PRE_QUESTIONS.length - 1) {
+  const handleNext = useCallback(() => {
+    if (!isLastQuestion) {
       nextQuestion();
     } else {
       completePreSurvey();
     }
-  };
+  }, [isLastQuestion, nextQuestion, completePreSurvey]);
 
   const handleBack = () => {
     if (currentQuestionIndex > 0) {
       prevQuestion();
     }
   };
+
+  const handleSelect = useCallback((value) => {
+    setPreAnswer(currentQuestion.id, value);
+    // Auto-advance after a short delay
+    setTimeout(() => {
+      handleNext();
+    }, AUTO_ADVANCE_DELAY);
+  }, [currentQuestion.id, setPreAnswer, handleNext]);
 
   const getQuestionOptions = (questionId) => {
     const options = t(`questions.${questionId}.options`, { returnObjects: true });
@@ -69,7 +71,7 @@ const PreSurvey = () => {
             question={t(`questions.${currentQuestion.id}.question`)}
             options={getQuestionOptions(currentQuestion.id)}
             selectedAnswer={currentAnswer}
-            onSelect={(value) => setPreAnswer(currentQuestion.id, value)}
+            onSelect={handleSelect}
             type={currentQuestion.type}
           />
         </AnimatePresence>
@@ -99,28 +101,7 @@ const PreSurvey = () => {
             <div className={styles.spacer} />
           )}
 
-          <button
-            className={`${styles.navButton} ${styles.navButtonNext}`}
-            onClick={handleNext}
-            disabled={!currentAnswer}
-          >
-            {currentQuestionIndex < PRE_QUESTIONS.length - 1
-              ? t('preSurvey.next')
-              : t('preSurvey.submit')}
-            <svg
-              className={styles.navArrow}
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </button>
+          <div className={styles.spacer} />
         </div>
       </div>
     </section>

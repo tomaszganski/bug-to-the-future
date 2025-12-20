@@ -1,16 +1,11 @@
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import useSurveyStore from '../../store/surveyStore';
+import { AUTO_ADVANCE_DELAY, POST_QUESTIONS } from '../../constants/survey';
 import Question from './Question';
 import ProgressBar from './ProgressBar';
 import styles from './Survey.module.css';
-
-const POST_QUESTIONS = [
-  { id: 'insectProteinPost', type: 'scale' },
-  { id: 'tryProductPost', type: 'scale' },
-  { id: 'barriersPost', type: 'single' },
-  { id: 'learned', type: 'scale' },
-];
 
 const PostSurvey = () => {
   const { t } = useTranslation();
@@ -27,20 +22,29 @@ const PostSurvey = () => {
   const progress = getPostSurveyProgress();
   const currentQuestion = POST_QUESTIONS[currentQuestionIndex];
   const currentAnswer = postAnswers[currentQuestion.id];
+  const isLastQuestion = currentQuestionIndex === POST_QUESTIONS.length - 1;
 
-  const handleNext = () => {
-    if (currentQuestionIndex < POST_QUESTIONS.length - 1) {
+  const handleNext = useCallback(() => {
+    if (!isLastQuestion) {
       nextQuestion();
     } else {
       completePostSurvey();
     }
-  };
+  }, [isLastQuestion, nextQuestion, completePostSurvey]);
 
   const handleBack = () => {
     if (currentQuestionIndex > 0) {
       prevQuestion();
     }
   };
+
+  const handleSelect = useCallback((value) => {
+    setPostAnswer(currentQuestion.id, value);
+    // Auto-advance after a short delay
+    setTimeout(() => {
+      handleNext();
+    }, AUTO_ADVANCE_DELAY);
+  }, [currentQuestion.id, setPostAnswer, handleNext]);
 
   const getQuestionOptions = (questionId) => {
     const options = t(`postQuestions.${questionId}.options`, { returnObjects: true });
@@ -68,7 +72,7 @@ const PostSurvey = () => {
             question={t(`postQuestions.${currentQuestion.id}.question`)}
             options={getQuestionOptions(currentQuestion.id)}
             selectedAnswer={currentAnswer}
-            onSelect={(value) => setPostAnswer(currentQuestion.id, value)}
+            onSelect={handleSelect}
             type={currentQuestion.type}
           />
         </AnimatePresence>
@@ -98,28 +102,7 @@ const PostSurvey = () => {
             <div className={styles.spacer} />
           )}
 
-          <button
-            className={`${styles.navButton} ${styles.navButtonNext}`}
-            onClick={handleNext}
-            disabled={!currentAnswer}
-          >
-            {currentQuestionIndex < POST_QUESTIONS.length - 1
-              ? t('preSurvey.next')
-              : t('preSurvey.submit')}
-            <svg
-              className={styles.navArrow}
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </button>
+          <div className={styles.spacer} />
         </div>
       </div>
     </section>
