@@ -1,8 +1,9 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import useSurveyStore from '../../store/surveyStore';
 import styles from './Hero.module.css';
-import cricketFlourImg from '../../assets/cricket-flour-2.png';
+import cricketFlourImg from '../../assets/cricket-flour-3.png';
 
 const Hero = () => {
   const { t } = useTranslation();

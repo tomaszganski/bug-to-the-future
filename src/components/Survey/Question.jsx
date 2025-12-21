@@ -6,10 +6,16 @@ const Question = ({
   options, 
   selectedAnswer, 
   onSelect, 
-  type = 'scale' // 'scale' | 'single'
+  type = 'scale', // 'scale' | 'single' | 'scale11'
+  scaleLabel,
 }) => {
+  const isScale11 = type === 'scale11';
   const isScaleType = type === 'scale';
-  const optionEntries = Object.entries(options);
+  
+  // For scale11, generate 1-10 options
+  const optionEntries = isScale11 
+    ? Array.from({ length: 10 }, (_, i) => [String(i + 1), String(i + 1)])
+    : Object.entries(options || {});
 
   return (
     <motion.div
@@ -20,24 +26,38 @@ const Question = ({
       transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
     >
       <h3 className={styles.questionText}>{question}</h3>
+      {scaleLabel && <p className={styles.scaleLabel}>{scaleLabel}</p>}
       
-      <div className={isScaleType ? styles.scaleOptions : styles.singleOptions}>
+      <div className={isScale11 ? styles.scale11Options : (isScaleType ? styles.scaleOptions : styles.singleOptions)}>
         {optionEntries.map(([value, label], index) => (
           <motion.button
             key={value}
-            className={`${styles.optionButton} ${selectedAnswer === value ? styles.selected : ''}`}
+            className={`${styles.optionButton} ${isScale11 ? styles.scale11Button : ''} ${selectedAnswer === value ? styles.selected : ''}`}
             onClick={() => onSelect(value)}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05, duration: 0.3 }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            transition={{ delay: index * 0.03, duration: 0.3 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            {isScaleType && <span className={styles.optionValue}>{value}</span>}
-            <span className={styles.optionLabel}>{label}</span>
+            {isScale11 ? (
+              <span className={styles.scale11Value}>{value}</span>
+            ) : (
+              <>
+                {isScaleType && <span className={styles.optionValue}>{value}</span>}
+                <span className={styles.optionLabel}>{label}</span>
+              </>
+            )}
           </motion.button>
         ))}
       </div>
+      
+      {isScale11 && (
+        <div className={styles.scaleLabels}>
+          <span>1 — Zdecydowanie nie</span>
+          <span>10 — Zdecydowanie tak</span>
+        </div>
+      )}
     </motion.div>
   );
 };

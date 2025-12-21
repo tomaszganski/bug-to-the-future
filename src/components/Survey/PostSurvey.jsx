@@ -48,7 +48,12 @@ const PostSurvey = () => {
 
   const getQuestionOptions = (questionId) => {
     const options = t(`postQuestions.${questionId}.options`, { returnObjects: true });
-    return options;
+    // Return empty object for scale11 type (0-10 scale)
+    return typeof options === 'string' ? {} : options;
+  };
+
+  const getScaleLabel = (questionId) => {
+    return t(`postQuestions.${questionId}.scaleLabel`, { defaultValue: '' });
   };
 
   return (
@@ -74,6 +79,7 @@ const PostSurvey = () => {
             selectedAnswer={currentAnswer}
             onSelect={handleSelect}
             type={currentQuestion.type}
+            scaleLabel={getScaleLabel(currentQuestion.id)}
           />
         </AnimatePresence>
 
