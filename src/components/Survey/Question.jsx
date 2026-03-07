@@ -28,9 +28,9 @@ const Question = ({
     setLocalOtherText(otherText);
   }, [otherText]);
 
-  // For scale11, generate 1-10 options
+  // For scale11, generate 0-10 options
   const optionEntries = isScale11
-    ? Array.from({ length: 10 }, (_, i) => [String(i + 1), String(i + 1)])
+    ? Array.from({ length: 11 }, (_, i) => [String(i), String(i)])
     : Object.entries(options || {});
 
   const isSelected = (value) => {
@@ -171,7 +171,7 @@ const Question = ({
 
       {isScale11 && (
         <div className={styles.scaleLabels}>
-          <span>1 — Zdecydowanie nie</span>
+          <span>0 — Zdecydowanie nie</span>
           <span>10 — Zdecydowanie tak</span>
         </div>
       )}

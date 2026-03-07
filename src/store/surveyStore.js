@@ -121,7 +121,7 @@ const useSurveyStore = create(
 
       getPostSurveyProgress: () => {
         const state = get();
-        const totalQuestions = 4;
+        const totalQuestions = 4; // attitudeChange, barriersPost, nutritionValuePost, euRegulationPost
         return {
           current: state.currentQuestionIndex + 1,
           total: totalQuestions,

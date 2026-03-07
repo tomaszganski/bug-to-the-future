@@ -29,7 +29,7 @@ const resources = {
         willingness: {
           question:
             "Na ile był(a)byś skłonny/a spróbować produktu zawierającego białko z owadów?",
-          scaleLabel: "Skala 1–10",
+          scaleLabel: "Skala 0–10",
         },
         barriers: {
           question:
@@ -38,8 +38,10 @@ const resources = {
             appearance: "Wygląd lub skojarzenia wizualne z owadami",
             taste: "Obawy o smak",
             safety: "Obawy dotyczące bezpieczeństwa zdrowotnego",
-            tradition: "Brak przyzwyczajenia / tradycji spożywania takich produktów",
-            lackOfKnowledge: "Brak wiedzy na temat produktów zawierających białko z owadów",
+            tradition:
+              "Brak przyzwyczajenia / tradycji spożywania takich produktów",
+            lackOfKnowledge:
+              "Brak wiedzy na temat produktów zawierających białko z owadów",
             noNeed: "Brak potrzeby wprowadzania takich produktów do diety",
             price: "Cena",
             availability: "Dostępność",
@@ -48,24 +50,22 @@ const resources = {
           },
           otherPlaceholder: "Wpisz swoją odpowiedź...",
         },
-        knowledge: {
+        nutritionValue: {
           question:
-            "Jak oceniasz swoją wiedzę na temat alternatywnych źródeł białka (np. roślinnych, owadzich, fermentacyjnych)?",
-          options: {
-            veryLow: "Bardzo niska",
-            low: "Niska",
-            medium: "Średnia",
-            high: "Wysoka",
-          },
-        },
-        euRegulation: {
-          question:
-            "Czy wiesz, że niektóre gatunki owadów są dopuszczone do obrotu jako żywność w UE?",
+            "Czy uważasz, że białko pochodzenia owadziego ma zbliżoną wartość odżywczą do mięsa zwierzęcego?",
           options: {
             yes: "Tak",
             no: "Nie",
             dontKnow: "Nie wiem",
-            notSure: "Nie jestem pewny/a",
+          },
+        },
+        euRegulation: {
+          question:
+            "Czy to stwierdzenie jest prawdziwe: niektóre gatunki owadów są dopuszczone do obrotu w UE?",
+          options: {
+            true: "Prawda",
+            false: "Fałsz",
+            dontKnow: "Nie wiem",
           },
         },
         age: {
@@ -73,9 +73,9 @@ const resources = {
           options: {
             under18: "Poniżej 18",
             "18-24": "18-24",
-            "25-29": "25-29",
-            "30-35": "30-35",
-            over35: "Powyżej 35",
+            "25-35": "25-35",
+            "36-45": "36-45",
+            over45: "Powyżej 45",
           },
         },
         gender: {
@@ -100,35 +100,10 @@ const resources = {
       // Education Section
       education: {
         title: "Białko przyszłości",
-        slides: {
-          intro: {
-            title: "Czy wiesz, że...",
-            content:
-              "Do 2050 roku populacja Ziemi osiągnie 10 miliardów ludzi. Potrzebujemy nowych, zrównoważonych źródeł białka.",
-          },
-          efficiency: {
-            title: "Efektywność produkcji",
-            content:
-              "Owady potrzebują 12x mniej paszy niż bydło, aby wyprodukować tę samą ilość białka. Zużywają też 2000x mniej wody.",
-          },
-          nutrition: {
-            title: "Wartości odżywcze",
-            content:
-              "Mączka z owadów zawiera wszystkie niezbędne aminokwasy, jest bogata w żelazo, cynk i witaminy z grupy B.",
-          },
-          everyday: {
-            title: "Codzienne zastosowanie",
-            content:
-              "Białko owadzie jest przetwarzane na mączkę, która staje się niewidocznym składnikiem batonów proteinowych, makaronów czy wypieków.",
-          },
-          global: {
-            title: "Globalna perspektywa",
-            content:
-              "Ponad 2 miliardy ludzi na świecie regularnie spożywa owady. W Europie to nowy trend, ale dla wielu kultur — codzienna praktyka.",
-          },
-        },
-        next: "Dalej",
-        finish: "Zakończ",
+        playVideo: "Odtwórz wideo",
+        watchRemaining: "Pozostało {{seconds}} sek. do odblokowania",
+        readyToProceed: "Możesz przejść dalej",
+        finish: "Dalej",
       },
 
       // Post-Survey Section
@@ -150,19 +125,17 @@ const resources = {
             moreNegative: "Na bardziej negatywne",
           },
         },
-        willingnessPost: {
-          question:
-            "Na ile był(a)byś skłonny/a spróbować produktu zawierającego białko z owadów?",
-          scaleLabel: "Skala 1–10",
-        },
         barriersPost: {
-          question: "Co najbardziej Cię teraz zniechęca?",
+          question:
+            "Co jest dla Ciebie największą barierą przed spróbowaniem produktów z białkiem owadzim?",
           options: {
             appearance: "Wygląd lub skojarzenia wizualne z owadami",
             taste: "Obawy o smak",
             safety: "Obawy dotyczące bezpieczeństwa zdrowotnego",
-            tradition: "Brak przyzwyczajenia / tradycji spożywania takich produktów",
-            lackOfKnowledge: "Brak wiedzy na temat produktów zawierających białko z owadów",
+            tradition:
+              "Brak przyzwyczajenia / tradycji spożywania takich produktów",
+            lackOfKnowledge:
+              "Brak wiedzy na temat produktów zawierających białko z owadów",
             noNeed: "Brak potrzeby wprowadzania takich produktów do diety",
             price: "Cena",
             availability: "Dostępność",
@@ -171,14 +144,22 @@ const resources = {
           },
           otherPlaceholder: "Wpisz swoją odpowiedź...",
         },
-        euRegulationPost: {
+        nutritionValuePost: {
           question:
-            "Czy wiesz, że niektóre gatunki owadów są dopuszczone do obrotu jako żywność w UE?",
+            "Czy uważasz, że białko pochodzenia owadziego ma zbliżoną wartość odżywczą do mięsa zwierzęcego?",
           options: {
             yes: "Tak",
             no: "Nie",
             dontKnow: "Nie wiem",
-            notSure: "Nie jestem pewny/a",
+          },
+        },
+        euRegulationPost: {
+          question:
+            "Czy to stwierdzenie jest prawdziwe: niektóre gatunki owadów są dopuszczone do obrotu w UE?",
+          options: {
+            true: "Prawda",
+            false: "Fałsz",
+            dontKnow: "Nie wiem",
           },
         },
       },
