@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { submitSurveyToGoogleSheets } from "../services/googleSheets";
 
 const useSurveyStore = create(
   persist(
@@ -27,6 +28,11 @@ const useSurveyStore = create(
 
       // Has completed post-survey
       hasCompletedPostSurvey: false,
+
+      // Submission state
+      isSubmitting: false,
+      submissionError: null,
+      hasSubmitted: false,
 
       // Actions
       setSection: (section) => set({ currentSection: section }),
@@ -78,11 +84,35 @@ const useSurveyStore = create(
           currentQuestionIndex: 0,
         }),
 
-      completePostSurvey: () =>
+      completePostSurvey: async () => {
+        const state = get();
+        
         set({
           hasCompletedPostSurvey: true,
           currentSection: "closing",
-        }),
+          isSubmitting: true,
+          submissionError: null,
+        });
+
+        try {
+          await submitSurveyToGoogleSheets(state.preAnswers, state.postAnswers);
+          set({ hasSubmitted: true, isSubmitting: false });
+        } catch (error) {
+          set({ submissionError: error.message, isSubmitting: false });
+        }
+      },
+
+      retrySubmission: async () => {
+        const state = get();
+        set({ isSubmitting: true, submissionError: null });
+
+        try {
+          await submitSurveyToGoogleSheets(state.preAnswers, state.postAnswers);
+          set({ hasSubmitted: true, isSubmitting: false });
+        } catch (error) {
+          set({ submissionError: error.message, isSubmitting: false });
+        }
+      },
 
       startSurvey: () =>
         set({
@@ -106,6 +136,9 @@ const useSurveyStore = create(
           hasCompletedPreSurvey: false,
           hasWatchedEducation: false,
           hasCompletedPostSurvey: false,
+          isSubmitting: false,
+          submissionError: null,
+          hasSubmitted: false,
         }),
 
       // Computed values

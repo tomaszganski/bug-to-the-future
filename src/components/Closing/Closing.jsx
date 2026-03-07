@@ -7,6 +7,9 @@ import styles from './Closing.module.css';
 const Closing = () => {
   const { t } = useTranslation();
   const reset = useSurveyStore((state) => state.reset);
+  const retrySubmission = useSurveyStore((state) => state.retrySubmission);
+  const submissionError = useSurveyStore((state) => state.submissionError);
+  const hasSubmitted = useSurveyStore((state) => state.hasSubmitted);
   const [copied, setCopied] = useState(false);
 
   const handleCopyLink = async () => {
@@ -73,6 +76,45 @@ const Closing = () => {
         >
           {t('closing.description')}
         </motion.p>
+
+        {hasSubmitted && (
+          <motion.div
+            className={styles.submissionSuccess}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.3 }}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <p>{t('closing.submitted')}</p>
+          </motion.div>
+        )}
+
+        {submissionError && (
+          <motion.div
+            className={styles.submissionError}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <p>{t('closing.submissionError')}</p>
+            <button
+              className={styles.retryButton}
+              onClick={retrySubmission}
+            >
+              {t('closing.retry')}
+            </button>
+          </motion.div>
+        )}
 
         <motion.div
           className={styles.shareCard}

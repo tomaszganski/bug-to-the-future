@@ -115,6 +115,51 @@
   max-width: 480px;
 }
 
+/* Submission Status */
+.submissionSuccess {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  border-radius: 100px;
+  color: #28a745;
+  font-size: 0.9rem;
+}
+
+.submissionSuccess svg {
+  flex-shrink: 0;
+}
+
+.submissionError {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  border-radius: 12px;
+  color: #dc3545;
+  font-size: 0.95rem;
+}
+
+.retryButton {
+  padding: 0.5rem 1rem;
+  background: #dc3545;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 100px;
+  transition: all var(--transition-smooth);
+}
+
+.retryButton:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
 /* Share Card */
 .shareCard {
   background: rgba(255, 255, 255, 0.9);
