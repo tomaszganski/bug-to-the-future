@@ -35,16 +35,18 @@ const resources = {
           question:
             "Co jest dla Ciebie największą barierą przed spróbowaniem produktów z białkiem owadzim?",
           options: {
-            appearance: "Wygląd / estetyka",
+            appearance: "Wygląd lub skojarzenia wizualne z owadami",
             taste: "Obawy o smak",
-            safety: "Bezpieczeństwo zdrowotne",
-            tradition: "Tradycja kulturowa",
+            safety: "Obawy dotyczące bezpieczeństwa zdrowotnego",
+            tradition: "Brak przyzwyczajenia / tradycji spożywania takich produktów",
+            lackOfKnowledge: "Brak wiedzy na temat produktów zawierających białko z owadów",
+            noNeed: "Brak potrzeby wprowadzania takich produktów do diety",
             price: "Cena",
             availability: "Dostępność",
-            none: "Nie mam barier",
+            other: "Inne (jakie?)",
             nothingDiscourages: "Nic mnie nie zniechęca",
-            other: "Inne",
           },
+          otherPlaceholder: "Wpisz swoją odpowiedź...",
         },
         knowledge: {
           question:
@@ -156,16 +158,18 @@ const resources = {
         barriersPost: {
           question: "Co najbardziej Cię teraz zniechęca?",
           options: {
-            appearance: "Wygląd / estetyka",
+            appearance: "Wygląd lub skojarzenia wizualne z owadami",
             taste: "Obawy o smak",
-            safety: "Bezpieczeństwo zdrowotne",
-            tradition: "Tradycja kulturowa",
+            safety: "Obawy dotyczące bezpieczeństwa zdrowotnego",
+            tradition: "Brak przyzwyczajenia / tradycji spożywania takich produktów",
+            lackOfKnowledge: "Brak wiedzy na temat produktów zawierających białko z owadów",
+            noNeed: "Brak potrzeby wprowadzania takich produktów do diety",
             price: "Cena",
             availability: "Dostępność",
-            none: "Nie mam barier",
+            other: "Inne (jakie?)",
             nothingDiscourages: "Nic mnie nie zniechęca",
-            other: "Inne",
           },
+          otherPlaceholder: "Wpisz swoją odpowiedź...",
         },
         euRegulationPost: {
           question:

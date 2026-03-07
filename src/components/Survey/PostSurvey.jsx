@@ -23,6 +23,7 @@ const PostSurvey = () => {
   const currentQuestion = POST_QUESTIONS[currentQuestionIndex];
   const currentAnswer = postAnswers[currentQuestion.id];
   const isLastQuestion = currentQuestionIndex === POST_QUESTIONS.length - 1;
+  const isMultipleChoice = currentQuestion.type === 'multiple';
 
   const handleNext = useCallback(() => {
     if (!isLastQuestion) {
@@ -40,20 +41,33 @@ const PostSurvey = () => {
 
   const handleSelect = useCallback((value) => {
     setPostAnswer(currentQuestion.id, value);
-    // Auto-advance after a short delay
-    setTimeout(() => {
-      handleNext();
-    }, AUTO_ADVANCE_DELAY);
-  }, [currentQuestion.id, setPostAnswer, handleNext]);
+    // Only auto-advance for non-multiple choice questions
+    if (currentQuestion.type !== 'multiple') {
+      setTimeout(() => {
+        handleNext();
+      }, AUTO_ADVANCE_DELAY);
+    }
+  }, [currentQuestion.id, currentQuestion.type, setPostAnswer, handleNext]);
 
   const getQuestionOptions = (questionId) => {
     const options = t(`postQuestions.${questionId}.options`, { returnObjects: true });
-    // Return empty object for scale11 type (0-10 scale)
     return typeof options === 'string' ? {} : options;
   };
 
   const getScaleLabel = (questionId) => {
     return t(`postQuestions.${questionId}.scaleLabel`, { defaultValue: '' });
+  };
+
+  const getOtherPlaceholder = (questionId) => {
+    return t(`postQuestions.${questionId}.otherPlaceholder`, { defaultValue: '' });
+  };
+
+  const hasValidAnswer = () => {
+    if (!currentAnswer) return false;
+    if (isMultipleChoice) {
+      return currentAnswer.selected && currentAnswer.selected.length > 0;
+    }
+    return true;
   };
 
   return (
@@ -80,6 +94,8 @@ const PostSurvey = () => {
             onSelect={handleSelect}
             type={currentQuestion.type}
             scaleLabel={getScaleLabel(currentQuestion.id)}
+            otherAllowsInput={currentQuestion.otherAllowsInput}
+            otherPlaceholder={getOtherPlaceholder(currentQuestion.id)}
           />
         </AnimatePresence>
 
@@ -108,7 +124,30 @@ const PostSurvey = () => {
             <div className={styles.spacer} />
           )}
 
-          <div className={styles.spacer} />
+          {isMultipleChoice ? (
+            <button
+              className={`${styles.navButton} ${styles.navButtonNext}`}
+              onClick={handleNext}
+              disabled={!hasValidAnswer()}
+            >
+              {isLastQuestion ? t('preSurvey.submit') : t('preSurvey.next')}
+              <svg
+                className={styles.navArrow}
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          ) : (
+            <div className={styles.spacer} />
+          )}
         </div>
       </div>
     </section>
