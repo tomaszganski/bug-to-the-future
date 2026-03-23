@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import useSurveyStore from '../../store/surveyStore';
 import styles from './Education.module.css';
 
-const YOUTUBE_VIDEO_ID = 'Z20BEPgwHzE';
+const YOUTUBE_VIDEO_ID = 'K66Gi3oC3qU';
 const REQUIRED_WATCH_TIME = 5;
 
 const Education = () => {
