@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { trackSectionView } from './analytics';
 import useSurveyStore from './store/surveyStore';
 import Hero from './components/Hero';
 import { PreSurvey, PostSurvey } from './components/Survey';
@@ -26,6 +28,10 @@ const pageTransition = {
 
 function App() {
   const currentSection = useSurveyStore((state) => state.currentSection);
+
+  useEffect(() => {
+    trackSectionView(currentSection);
+  }, [currentSection]);
 
   const renderSection = () => {
     switch (currentSection) {
