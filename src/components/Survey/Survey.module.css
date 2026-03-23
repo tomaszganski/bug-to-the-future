@@ -149,14 +149,14 @@
 }
 
 /* Scale 11 Options (0-10 horizontal) */
-.scale11Options {
+.scale10Options {
   display: flex;
   gap: 0.5rem;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.scale11Button {
+.scale10Button {
   width: 48px;
   height: 48px;
   padding: 0;
@@ -169,24 +169,24 @@
   transition: all var(--transition-smooth);
 }
 
-.scale11Button:hover {
+.scale10Button:hover {
   background: var(--warm-sand);
   border-color: var(--warm-gold);
 }
 
-.scale11Button.selected {
+.scale10Button.selected {
   background: var(--warm-gold);
   border-color: var(--warm-gold);
   box-shadow: 0 0 20px rgba(242, 200, 121, 0.4);
 }
 
-.scale11Value {
+.scale10Value {
   font-size: 1.125rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.scale11Button.selected .scale11Value {
+.scale10Button.selected .scale10Value {
   color: var(--deep-grain);
 }
 
@@ -203,17 +203,17 @@
 }
 
 @media (max-width: 600px) {
-  .scale11Button {
+  .scale10Button {
     width: 40px;
     height: 40px;
     border-radius: 10px;
   }
   
-  .scale11Value {
+  .scale10Value {
     font-size: 1rem;
   }
   
-  .scale11Options {
+  .scale10Options {
     gap: 0.375rem;
   }
 }

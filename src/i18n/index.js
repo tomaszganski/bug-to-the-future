@@ -29,7 +29,7 @@ const resources = {
         willingness: {
           question:
             "Na ile był(a)byś skłonny/a spróbować produktu zawierającego białko z owadów?",
-          scaleLabel: "Skala 0–10",
+          scaleLabel: "Skala 1–10",
         },
         barriers: {
           question:

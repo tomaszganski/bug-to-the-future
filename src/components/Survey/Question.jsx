@@ -7,12 +7,12 @@ const Question = ({
   options,
   selectedAnswer,
   onSelect,
-  type = "scale", // 'scale' | 'single' | 'scale11' | 'multiple'
+  type = "scale", // 'scale' | 'single' | 'scale10' | 'multiple'
   scaleLabel,
   otherAllowsInput = false,
   otherPlaceholder = "",
 }) => {
-  const isScale11 = type === "scale11";
+  const isScale10 = type === "scale10";
   const isScaleType = type === "scale";
   const isMultiple = type === "multiple";
 
@@ -28,9 +28,9 @@ const Question = ({
     setLocalOtherText(otherText);
   }, [otherText]);
 
-  // For scale11, generate 0-10 options
-  const optionEntries = isScale11
-    ? Array.from({ length: 11 }, (_, i) => [String(i), String(i)])
+  // For scale10, generate 1-10 options
+  const optionEntries = isScale10
+    ? Array.from({ length: 10 }, (_, i) => [String(i + 1), String(i + 1)])
     : Object.entries(options || {});
 
   const isSelected = (value) => {
@@ -93,8 +93,8 @@ const Question = ({
 
       <div
         className={
-          isScale11
-            ? styles.scale11Options
+          isScale10
+            ? styles.scale10Options
             : isScaleType
               ? styles.scaleOptions
               : styles.singleOptions
@@ -104,7 +104,7 @@ const Question = ({
           <>
             <motion.button
               key={value}
-              className={`${styles.optionButton} ${isScale11 ? styles.scale11Button : ""} ${isMultiple ? styles.multipleButton : ""} ${isSelected(value) ? styles.selected : ""}`}
+              className={`${styles.optionButton} ${isScale10 ? styles.scale10Button : ""} ${isMultiple ? styles.multipleButton : ""} ${isSelected(value) ? styles.selected : ""}`}
               onClick={() => handleClick(value)}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -113,8 +113,8 @@ const Question = ({
               whileTap={{ scale: 0.98 }}
               type="button"
             >
-              {isScale11 ? (
-                <span className={styles.scale11Value}>{value}</span>
+              {isScale10 ? (
+                <span className={styles.scale10Value}>{value}</span>
               ) : (
                 <>
                   {isMultiple && (
@@ -169,9 +169,9 @@ const Question = ({
         ))}
       </div>
 
-      {isScale11 && (
+      {isScale10 && (
         <div className={styles.scaleLabels}>
-          <span>0 — Zdecydowanie nie</span>
+          <span>1 — Zdecydowanie nie</span>
           <span>10 — Zdecydowanie tak</span>
         </div>
       )}
