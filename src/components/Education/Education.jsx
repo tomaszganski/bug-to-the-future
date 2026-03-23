@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import useSurveyStore from '../../store/surveyStore';
 import styles from './Education.module.css';
@@ -9,13 +9,16 @@ const REQUIRED_WATCH_TIME = 5;
 
 const Education = () => {
   const { t } = useTranslation();
-  const { completeEducation } = useSurveyStore();
-  
+  const completeEducation = useSurveyStore((s) => s.completeEducation);
+
+  const [showIntroPopup, setShowIntroPopup] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [watchedSeconds, setWatchedSeconds] = useState(0);
   const [canProceed, setCanProceed] = useState(false);
   const playerRef = useRef(null);
   const intervalRef = useRef(null);
+  const playerReadyRef = useRef(false);
+  const shouldAutoplayAfterIntro = useRef(false);
 
   const handlePlayerStateChange = useCallback((event) => {
     if (event.data === window.YT.PlayerState.PLAYING) {
@@ -38,6 +41,14 @@ const Education = () => {
     }
   }, []);
 
+  const handlePlayerReady = useCallback(() => {
+    playerReadyRef.current = true;
+    if (shouldAutoplayAfterIntro.current) {
+      shouldAutoplayAfterIntro.current = false;
+      playerRef.current?.playVideo?.();
+    }
+  }, []);
+
   useEffect(() => {
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
@@ -54,6 +65,7 @@ const Education = () => {
           rel: 0,
         },
         events: {
+          onReady: handlePlayerReady,
           onStateChange: handlePlayerStateChange,
         },
       });
@@ -70,12 +82,22 @@ const Education = () => {
       if (playerRef.current && playerRef.current.destroy) {
         playerRef.current.destroy();
       }
+      playerReadyRef.current = false;
     };
-  }, [handlePlayerStateChange]);
+  }, [handlePlayerStateChange, handlePlayerReady]);
 
   const handlePlayVideo = () => {
     if (playerRef.current && playerRef.current.playVideo) {
       playerRef.current.playVideo();
+    }
+  };
+
+  const handleIntroConfirm = () => {
+    setShowIntroPopup(false);
+    shouldAutoplayAfterIntro.current = true;
+    if (playerReadyRef.current) {
+      shouldAutoplayAfterIntro.current = false;
+      playerRef.current?.playVideo?.();
     }
   };
 
@@ -87,6 +109,48 @@ const Education = () => {
 
   return (
     <section className={styles.education}>
+      <AnimatePresence>
+        {showIntroPopup && (
+          <motion.div
+            className={styles.introBackdrop}
+            role="presentation"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <motion.div
+              className={styles.introModal}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="education-intro-title"
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className={styles.introIcon} aria-hidden>
+                <span>📚</span>
+              </div>
+              <h2 id="education-intro-title" className={styles.introTitle}>
+                {t('education.introTitle')}
+              </h2>
+              <p className={styles.introDescription}>{t('education.introDescription')}</p>
+              <button
+                type="button"
+                className={styles.introCta}
+                onClick={handleIntroConfirm}
+              >
+                <span className={styles.introPlayIcon}>▶</span>
+                <span>{t('education.introCta')}</span>
+                <span className={styles.introDuration}>({t('education.introDuration')})</span>
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className={styles.background}>
         <div className={styles.gradientOrb1} />
         <div className={styles.gradientOrb2} />

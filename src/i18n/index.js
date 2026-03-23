@@ -88,18 +88,14 @@ const resources = {
         },
       },
 
-      // Transition Section
-      transition: {
-        title: "Czas na kilka faktów",
-        description:
-          "Teraz pokażemy Ci kilka faktów o białku przyszłości. Zobacz, czy coś z tego zmieni Twoje spojrzenie.",
-        cta: "Zobacz materiał",
-        duration: "2 min",
-      },
-
       // Education Section
       education: {
         title: "Białko przyszłości",
+        introTitle: "Czas na kilka faktów",
+        introDescription:
+          "Teraz pokażemy Ci kilka faktów o białku przyszłości. Zobacz, czy coś z tego zmieni Twoje spojrzenie.",
+        introCta: "Zobacz materiał",
+        introDuration: "2 min",
         playVideo: "Odtwórz wideo",
         watchRemaining: "Pozostało {{seconds}} sek. do odblokowania",
         readyToProceed: "Możesz przejść dalej",

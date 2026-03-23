@@ -5,7 +5,7 @@ import { submitSurveyToGoogleSheets } from "../services/googleSheets";
 const useSurveyStore = create(
   persist(
     (set, get) => ({
-      // Current section (hero, preSurvey, transition, education, postSurvey, closing)
+      // Current section (hero, preSurvey, education, postSurvey, closing)
       currentSection: "hero",
 
       // Pre-survey answers
@@ -74,7 +74,8 @@ const useSurveyStore = create(
       completePreSurvey: () =>
         set({
           hasCompletedPreSurvey: true,
-          currentSection: "transition",
+          currentSection: "education",
+          currentSlideIndex: 0,
         }),
 
       completeEducation: () =>
@@ -118,12 +119,6 @@ const useSurveyStore = create(
         set({
           currentSection: "preSurvey",
           currentQuestionIndex: 0,
-        }),
-
-      startEducation: () =>
-        set({
-          currentSection: "education",
-          currentSlideIndex: 0,
         }),
 
       reset: () =>
@@ -174,6 +169,17 @@ const useSurveyStore = create(
     }),
     {
       name: "bug-to-future-survey",
+      merge: (persistedState, currentState) => {
+        const p =
+          persistedState && typeof persistedState === "object"
+            ? persistedState
+            : {};
+        const next = { ...currentState, ...p };
+        if (next.currentSection === "transition") {
+          next.currentSection = "education";
+        }
+        return next;
+      },
       storage: {
         getItem: (name) => {
           const item = sessionStorage.getItem(name);

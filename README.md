@@ -58,10 +58,9 @@ Po deployu:
 
 1. **Hero** - Strona główna z CTA
 2. **Pre-Survey** - Ankieta przed edukacją (6 pytań)
-3. **Transition** - Przejście do materiału edukacyjnego
-4. **Education** - 5 slajdów z faktami o białku przyszłości
-5. **Post-Survey** - Ankieta po edukacji (4 pytania)
-6. **Closing** - Podziękowanie i opcja udostępnienia
+3. **Education** - Krótki intro (popup) i materiał wideo o białku przyszłości
+4. **Post-Survey** - Ankieta po edukacji (4 pytania)
+5. **Closing** - Podziękowanie i opcja udostępnienia
 
 ## 🛠 Technologie
 

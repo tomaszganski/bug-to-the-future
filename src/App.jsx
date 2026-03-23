@@ -4,7 +4,6 @@ import { trackSectionView } from './analytics';
 import useSurveyStore from './store/surveyStore';
 import Hero from './components/Hero';
 import { PreSurvey, PostSurvey } from './components/Survey';
-import Transition from './components/Transition';
 import Education from './components/Education';
 import Closing from './components/Closing';
 import './App.css';
@@ -39,8 +38,6 @@ function App() {
         return <Hero key="hero" />;
       case 'preSurvey':
         return <PreSurvey key="preSurvey" />;
-      case 'transition':
-        return <Transition key="transition" />;
       case 'education':
         return <Education key="education" />;
       case 'postSurvey':
