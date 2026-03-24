@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import useSurveyStore from '../../store/surveyStore';
 import styles from './Hero.module.css';
 import cricketFlourImg from '../../assets/cricket-flour.jpg';
-import logoBugToTheFutureGreen from '../../assets/logo-bug-to-the-future-green-with-name.png';
+import logoBugToTheFutureGreen from '../../assets/logo-bug-to-the-future-dark-with-name.png';
 import vizjaLogo from '../../assets/vizja-logo.png';
 
 const Hero = () => {
