@@ -8,7 +8,7 @@ const resources = {
       hero: {
         title: "Bug to the Future",
         subtitle: "Czy białko przyszłości ma skrzydła?",
-        description: "Sprawdź, co sądzisz o nowych źródłach białka.",
+        description: "Sprawdź, czy Twoja pierwsza reakcja się zmieni.",
         cta: "Sprawdź siebie",
         ctaSubtext: "To zajmie tylko 5 minut",
       },
