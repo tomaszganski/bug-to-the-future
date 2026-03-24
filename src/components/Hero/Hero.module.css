@@ -127,6 +127,11 @@
   font-size: 1rem;
 }
 
+.logoBugToTheFutureGreen {
+  width: 300px;
+  margin-bottom: 1.5rem;
+}
+
 .title {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 400;
@@ -137,10 +142,10 @@
 
 .subtitle {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-size: clamp(2.5rem, 3vw, 3rem);
   color: var(--text-secondary);
   font-weight: 400;
-  font-style: italic;
+  line-height: 1.2;
 }
 
 .description {
@@ -194,6 +199,13 @@
   color: var(--text-muted);
 }
 
+.bottomText {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  position: absolute;
+  bottom: 30px;
+}
+
 /* Visual - Full Right Half */
 .visual {
   position: relative;
@@ -237,9 +249,43 @@
   transform: scale(1.05);
 }
 
+/* Partner logo over flour image — bottom right, scales with viewport */
+.vizjaLogoWrap {
+  position: absolute;
+  bottom: clamp(0.625rem, 2vmin, 1.25rem);
+  right: clamp(0.625rem, 2vmin, 1.25rem);
+  z-index: 2;
+  pointer-events: none;
+  max-width: min(42%, 130px);
+}
+
+.vizjaLogo {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0.125rem 0.5rem rgba(0, 0, 0, 0.35))
+    drop-shadow(0 0.25rem 1rem rgba(0, 0, 0, 0.2));
+}
+
 @media (max-width: 900px) {
+  .vizjaLogoWrap {
+    max-width: min(38%, 130px);
+    bottom: clamp(0.5rem, 1.5vmin, 1rem);
+    right: clamp(0.5rem, 1.5vmin, 1rem);
+  }
+
   .imageWrapper::before {
     background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.15) 100%);
+  }
+
+  .bottomText {
+    position: static;
+  }
+}
+
+@media (max-width: 480px) {
+  .vizjaLogoWrap {
+    max-width: min(44%, 130px);
   }
 }
 

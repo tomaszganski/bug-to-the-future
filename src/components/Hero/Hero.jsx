@@ -3,7 +3,9 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import useSurveyStore from '../../store/surveyStore';
 import styles from './Hero.module.css';
-import cricketFlourImg from '../../assets/cricket-flour-3.png';
+import cricketFlourImg from '../../assets/cricket-flour.jpg';
+import logoBugToTheFutureGreen from '../../assets/logo-bug-to-the-future-green-with-name.png';
+import vizjaLogo from '../../assets/vizja-logo.png';
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -25,33 +27,32 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         >
-          <motion.div
-            className={styles.badge}
+          <motion.img
+            className={styles.logoBugToTheFutureGreen}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <span className={styles.badgeIcon}>🌱</span>
-            <span>Białko przyszłości</span>
-          </motion.div>
+            src={logoBugToTheFutureGreen}
+            alt="Logo Bug to the Future"
+          />
 
-          <motion.h1
+          {/* <motion.h1
             className={styles.title}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
             {t('hero.title')}
-          </motion.h1>
+          </motion.h1> */}
 
-          <motion.p
+          <motion.h2
             className={styles.subtitle}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
             {t('hero.subtitle')}
-          </motion.p>
+          </motion.h2>
 
           <motion.p
             className={styles.description}
@@ -85,6 +86,7 @@ const Hero = () => {
               </svg>
             </button>
             <p className={styles.ctaSubtext}>{t('hero.ctaSubtext')}</p>
+            <p className={styles.bottomText}>Projekt społeczny, realizowany w ramach pracy licencjackiej z dietetyki.</p>
           </motion.div>
         </motion.div>
 
@@ -100,6 +102,16 @@ const Hero = () => {
               alt="Cricket flour products - sustainable protein source" 
               className={styles.heroImage}
             />
+            <div className={styles.vizjaLogoWrap}>
+              <img
+                src={vizjaLogo}
+                alt="Uniwersytet Vizja"
+                className={styles.vizjaLogo}
+                width={200}
+                height={220}
+                decoding="async"
+              />
+            </div>
           </div>
         </motion.div>
       </div>

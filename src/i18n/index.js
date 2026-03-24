@@ -8,10 +8,9 @@ const resources = {
       hero: {
         title: "Bug to the Future",
         subtitle: "Czy białko przyszłości ma skrzydła?",
-        description:
-          "Sprawdź, co sądzisz o białku przyszłości — i czy Twoje zdanie może się zmienić.",
-        cta: "Podziel się swoją opinią",
-        ctaSubtext: "Pomagasz zmieniać przyszłość jedzenia.",
+        description: "Sprawdź, co sądzisz o nowych źródłach białka.",
+        cta: "Sprawdź siebie",
+        ctaSubtext: "To zajmie tylko 5 minut",
       },
 
       // Pre-Survey Section
@@ -167,8 +166,7 @@ const resources = {
         description:
           "Twoje odpowiedzi pomogą nam zrozumieć, jak ludzie postrzegają białko przyszłości. Wyniki badania zostaną opublikowane w 2025 roku.",
         shareTitle: "Podziel się z innymi",
-        shareText:
-          "Może ktoś z Twoich znajomych też chce poznać białko przyszłości?",
+        shareText: "Znasz kogoś, kto powinien to zobaczyć? Udostępnij dalej!",
         copyLink: "Kopiuj link",
         copied: "Skopiowano!",
         restart: "Wypełnij ponownie",
