@@ -163,14 +163,11 @@ const resources = {
       closing: {
         title: "Dziękujemy za udział!",
         subtitle: "Twoja opinia ma znaczenie.",
-        description:
-          "Twoje odpowiedzi pomogą nam zrozumieć, jak ludzie postrzegają białko przyszłości. Wyniki badania zostaną opublikowane w 2025 roku.",
         shareTitle: "Podziel się z innymi",
         shareText: "Znasz kogoś, kto powinien to zobaczyć? Udostępnij dalej!",
         copyLink: "Kopiuj link",
         copied: "Skopiowano!",
         restart: "Wypełnij ponownie",
-        submitted: "Odpowiedzi zostały zapisane",
         submissionError: "Nie udało się zapisać odpowiedzi",
         retry: "Spróbuj ponownie",
         learnMoreTitle: "Dowiedz się więcej",
@@ -205,9 +202,9 @@ const resources = {
               description: "Proces produkcji krok po kroku.",
             },
             analizaBatonow: {
-              title: "Batony proteinowe – przegląd rynku",
+              title: "Protein bar pod lupą",
               description:
-                "Jakie produkty z białkiem owadzim są na rynku?",
+                "Analiza batonów proteinowych typu novel food  dostępnych na rynku UE",
             },
           },
         },

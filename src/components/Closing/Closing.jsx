@@ -72,38 +72,6 @@ const Closing = () => {
           {t('closing.subtitle')}
         </motion.p>
 
-        <motion.p
-          className={styles.description}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
-          {t('closing.description')}
-        </motion.p>
-
-        {hasSubmitted && (
-          <motion.div
-            className={styles.submissionSuccess}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.3 }}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M20 6L9 17l-5-5" />
-            </svg>
-            <p>{t('closing.submitted')}</p>
-          </motion.div>
-        )}
-
         {submissionError && (
           <motion.div
             className={styles.submissionError}
@@ -120,15 +88,60 @@ const Closing = () => {
           </motion.div>
         )}
 
+        {materialCards.length > 0 && (
+          <motion.div
+            className={styles.materialsBlock}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+          >
+            <h3 className={styles.learnMoreTitle}>{t('closing.learnMoreTitle')}</h3>
+            <p className={styles.learnMoreSubtitle}>
+              {t('closing.learnMoreSubtitle')}
+            </p>
+            <div className={styles.materialsGrid}>
+              {materialCards.map(({ href, i18nKey, icon }) => (
+                <article key={i18nKey} className={styles.materialCard}>
+                  <div className={styles.materialCardIcon}>
+                    <MaterialCardIcon
+                      name={icon}
+                      className={styles.materialCardIconSvg}
+                    />
+                  </div>
+                  <h4 className={styles.materialCardTitle}>
+                    {t(`closing.materials.cards.${i18nKey}.title`)}
+                  </h4>
+                  <div className={styles.materialCardRule} aria-hidden />
+                  <p className={styles.materialCardDesc}>
+                    {t(`closing.materials.cards.${i18nKey}.description`)}
+                  </p>
+                  <a
+                    className={styles.materialCardCta}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${t(`closing.materials.cards.${i18nKey}.title`)} — ${t('closing.materialCta')}`}
+                  >
+                    {t('closing.materialCta')}
+                  </a>
+                </article>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         <motion.div
           className={styles.shareBlock}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
+          transition={{
+            delay: materialCards.length > 0 ? 0.7 : 0.6,
+            duration: 0.5,
+          }}
         >
           <h3 className={styles.shareTitle}>{t('closing.shareTitle')}</h3>
           <p className={styles.shareText}>{t('closing.shareText')}</p>
-          
+
           <button
             className={styles.copyButton}
             onClick={handleCopyLink}
@@ -169,48 +182,6 @@ const Closing = () => {
             )}
           </button>
         </motion.div>
-
-        {materialCards.length > 0 && (
-          <motion.div
-            className={styles.materialsBlock}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
-          >
-            <h3 className={styles.learnMoreTitle}>{t('closing.learnMoreTitle')}</h3>
-            <p className={styles.learnMoreSubtitle}>
-              {t('closing.learnMoreSubtitle')}
-            </p>
-            <div className={styles.materialsGrid}>
-              {materialCards.map(({ href, i18nKey, icon }) => (
-                <article key={i18nKey} className={styles.materialCard}>
-                  <div className={styles.materialCardIcon}>
-                    <MaterialCardIcon
-                      name={icon}
-                      className={styles.materialCardIconSvg}
-                    />
-                  </div>
-                  <h4 className={styles.materialCardTitle}>
-                    {t(`closing.materials.cards.${i18nKey}.title`)}
-                  </h4>
-                  <div className={styles.materialCardRule} aria-hidden />
-                  <p className={styles.materialCardDesc}>
-                    {t(`closing.materials.cards.${i18nKey}.description`)}
-                  </p>
-                  <a
-                    className={styles.materialCardCta}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${t(`closing.materials.cards.${i18nKey}.title`)} — ${t('closing.materialCta')}`}
-                  >
-                    {t('closing.materialCta')}
-                  </a>
-                </article>
-              ))}
-            </div>
-          </motion.div>
-        )}
 
         <motion.button
           className={styles.restartButton}
