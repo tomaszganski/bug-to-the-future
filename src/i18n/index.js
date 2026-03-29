@@ -94,7 +94,7 @@ const resources = {
         introDescription:
           "Teraz pokażemy Ci kilka faktów o białku przyszłości. Zobacz, czy coś z tego zmieni Twoje spojrzenie.",
         introCta: "Zobacz materiał",
-        introDuration: "2 min",
+        introDuration: "3 min",
         playVideo: "Odtwórz wideo",
         watchRemaining: "Pozostało {{seconds}} sek. do odblokowania",
         readyToProceed: "Możesz przejść dalej",
@@ -173,6 +173,44 @@ const resources = {
         submitted: "Odpowiedzi zostały zapisane",
         submissionError: "Nie udało się zapisać odpowiedzi",
         retry: "Spróbuj ponownie",
+        learnMoreTitle: "Dowiedz się więcej",
+        learnMoreSubtitle:
+          "Zebraliśmy tu wybrane materiały i informacje dotyczące białka przyszłości.",
+        materialCta: "Zobacz materiał →",
+        materials: {
+          items: {
+            analizaBatonow: "Analiza batonów proteinowych (novel food)",
+            bialkoPrzyszlosci:
+              "Białko przyszłości – wartość odżywcza i porównanie źródeł białka",
+            czyWiesz10Faktow: "Czy wiesz, że… 10 faktów o produktach z owadów",
+            jakPowstajeBialkoOwadzie: "Jak powstaje białko owadzie",
+            mityIFakty: "Mity i fakty o żywności z owadów",
+          },
+          cards: {
+            czyWiesz10Faktow: {
+              title: "Ciekawostki o białku przyszłości",
+              description: "Najciekawsze fakty o nowych źródłach białka.",
+            },
+            mityIFakty: {
+              title: "Mity i fakty o białku owadzim",
+              description: "Obalamy najpopularniejsze mity i stereotypy.",
+            },
+            bialkoPrzyszlosci: {
+              title: "Białko przyszłości – wartość odżywcza",
+              description:
+                "Porównanie białka owadziego do innych źródeł białka.",
+            },
+            jakPowstajeBialkoOwadzie: {
+              title: "Jak powstaje białko owadzie?",
+              description: "Proces produkcji krok po kroku.",
+            },
+            analizaBatonow: {
+              title: "Batony proteinowe – przegląd rynku",
+              description:
+                "Jakie produkty z białkiem owadzim są na rynku?",
+            },
+          },
+        },
       },
     },
   },

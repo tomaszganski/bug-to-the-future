@@ -72,7 +72,7 @@
 .container {
   position: relative;
   z-index: 1;
-  max-width: 700px;
+  max-width: min(56rem, 100%);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -227,6 +227,138 @@
 }
 
 .copyButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.materialsBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(78, 58, 40, 0.08);
+  margin-top: 0.5rem;
+}
+
+.learnMoreTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.learnMoreSubtitle {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  max-width: 36rem;
+}
+
+.materialsGrid {
+  display: grid;
+  gap: 1.25rem;
+  width: 100%;
+  margin-top: 0.35rem;
+}
+
+@media (min-width: 768px) {
+  .materialsGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .materialCard {
+    grid-column: span 2;
+  }
+
+  .materialCard:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .materialCard:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+}
+
+@media (max-width: 767px) {
+  .materialsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.materialCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  padding: 1.35rem 1.1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.materialCardIcon {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--fresh-mint) 55%, var(--off-white));
+  color: var(--cricket-brown);
+}
+
+.materialCardIconSvg {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+}
+
+.materialCardTitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.materialCardRule {
+  width: 100%;
+  max-width: 11rem;
+  height: 1px;
+  background: rgba(78, 58, 40, 0.12);
+}
+
+.materialCardDesc {
+  margin: 0;
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 15rem;
+}
+
+.materialCardCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.15rem;
+  padding: 0.65rem 1.15rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 10px;
+  background: var(--warm-gold);
+  color: var(--deep-grain);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.materialCardCta:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-medium);
 }

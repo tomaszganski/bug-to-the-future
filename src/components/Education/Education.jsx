@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import useSurveyStore from '../../store/surveyStore';
 import styles from './Education.module.css';
 
-const YOUTUBE_VIDEO_ID = 'K66Gi3oC3qU';
-const REQUIRED_WATCH_TIME = 5;
+const YOUTUBE_VIDEO_ID = 'rcvoI3PRFJA';
+const REQUIRED_WATCH_TIME = 167;
 
 const Education = () => {
   const { t } = useTranslation();

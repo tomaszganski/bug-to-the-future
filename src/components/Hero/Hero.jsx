@@ -21,6 +21,7 @@ const Hero = () => {
       </div>
 
       <div className={styles.container}>
+        <div className={styles.contentColumn}>
         <motion.div
           className={styles.content}
           initial={{ opacity: 0, y: 30 }}
@@ -86,9 +87,10 @@ const Hero = () => {
               </svg>
             </button>
             <p className={styles.ctaSubtext}>{t('hero.ctaSubtext')}</p>
-            <p className={styles.bottomText}>Projekt społeczny, realizowany w ramach pracy licencjackiej z dietetyki.</p>
           </motion.div>
         </motion.div>
+        <p className={styles.bottomText}>Projekt społeczny, realizowany w ramach pracy licencjackiej z dietetyki.</p>
+        </div>
 
         <motion.div
           className={styles.visual}
@@ -115,17 +117,6 @@ const Hero = () => {
           </div>
         </motion.div>
       </div>
-
-      <motion.div
-        className={styles.scrollIndicator}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-      >
-        <div className={styles.scrollMouse}>
-          <div className={styles.scrollWheel} />
-        </div>
-      </motion.div>
     </section>
   );
 };

@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { getMaterialCardsWithHref } from '../../constants/materials';
+import { MaterialCardIcon } from './MaterialCardIcons';
 import useSurveyStore from '../../store/surveyStore';
 import styles from './Closing.module.css';
+
+const materialCards = getMaterialCardsWithHref();
 
 const Closing = () => {
   const { t } = useTranslation();
@@ -166,12 +170,54 @@ const Closing = () => {
           </button>
         </motion.div>
 
+        {materialCards.length > 0 && (
+          <motion.div
+            className={styles.materialsBlock}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+          >
+            <h3 className={styles.learnMoreTitle}>{t('closing.learnMoreTitle')}</h3>
+            <p className={styles.learnMoreSubtitle}>
+              {t('closing.learnMoreSubtitle')}
+            </p>
+            <div className={styles.materialsGrid}>
+              {materialCards.map(({ href, i18nKey, icon }) => (
+                <article key={i18nKey} className={styles.materialCard}>
+                  <div className={styles.materialCardIcon}>
+                    <MaterialCardIcon
+                      name={icon}
+                      className={styles.materialCardIconSvg}
+                    />
+                  </div>
+                  <h4 className={styles.materialCardTitle}>
+                    {t(`closing.materials.cards.${i18nKey}.title`)}
+                  </h4>
+                  <div className={styles.materialCardRule} aria-hidden />
+                  <p className={styles.materialCardDesc}>
+                    {t(`closing.materials.cards.${i18nKey}.description`)}
+                  </p>
+                  <a
+                    className={styles.materialCardCta}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${t(`closing.materials.cards.${i18nKey}.title`)} — ${t('closing.materialCta')}`}
+                  >
+                    {t('closing.materialCta')}
+                  </a>
+                </article>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         <motion.button
           className={styles.restartButton}
           onClick={handleRestart}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.5 }}
+          transition={{ delay: 0.85, duration: 0.5 }}
         >
           {t('closing.restart')}
         </motion.button>
