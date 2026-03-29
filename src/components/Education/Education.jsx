@@ -5,6 +5,7 @@ import useSurveyStore from '../../store/surveyStore';
 import styles from './Education.module.css';
 
 const YOUTUBE_VIDEO_ID = 'rcvoI3PRFJA';
+/** Seconds into the video the user must reach (playback position, not wall-clock watch time). */
 const REQUIRED_WATCH_TIME = 167;
 
 const Education = () => {
@@ -13,33 +14,47 @@ const Education = () => {
 
   const [showIntroPopup, setShowIntroPopup] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [watchedSeconds, setWatchedSeconds] = useState(0);
+  const [videoTime, setVideoTime] = useState(0);
   const [canProceed, setCanProceed] = useState(false);
   const playerRef = useRef(null);
   const intervalRef = useRef(null);
   const playerReadyRef = useRef(false);
   const shouldAutoplayAfterIntro = useRef(false);
 
-  const handlePlayerStateChange = useCallback((event) => {
-    if (event.data === window.YT.PlayerState.PLAYING) {
-      setIsPlaying(true);
-      intervalRef.current = setInterval(() => {
-        setWatchedSeconds((prev) => {
-          const newVal = prev + 1;
-          if (newVal >= REQUIRED_WATCH_TIME) {
-            setCanProceed(true);
-            clearInterval(intervalRef.current);
-          }
-          return newVal;
-        });
-      }, 1000);
-    } else {
-      setIsPlaying(false);
+  const syncFromPlayer = useCallback(() => {
+    const player = playerRef.current;
+    if (!player?.getCurrentTime) return;
+    const t = player.getCurrentTime();
+    setVideoTime(t);
+    if (t >= REQUIRED_WATCH_TIME) {
+      setCanProceed(true);
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
     }
   }, []);
+
+  const handlePlayerStateChange = useCallback((event) => {
+    const YT = window.YT;
+    const active =
+      event.data === YT.PlayerState.PLAYING || event.data === YT.PlayerState.BUFFERING;
+
+    if (active) {
+      setIsPlaying(true);
+      if (!intervalRef.current) {
+        syncFromPlayer();
+        intervalRef.current = setInterval(syncFromPlayer, 250);
+      }
+    } else {
+      setIsPlaying(false);
+      if (event.data === YT.PlayerState.ENDED && intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      syncFromPlayer();
+    }
+  }, [syncFromPlayer]);
 
   const handlePlayerReady = useCallback(() => {
     playerReadyRef.current = true;
@@ -105,7 +120,7 @@ const Education = () => {
     completeEducation();
   };
 
-  const remainingSeconds = Math.max(0, REQUIRED_WATCH_TIME - watchedSeconds);
+  const remainingSeconds = Math.max(0, Math.ceil(REQUIRED_WATCH_TIME - videoTime));
 
   return (
     <section className={styles.education}>
@@ -176,7 +191,7 @@ const Education = () => {
             <div id="youtube-player" className={styles.videoPlayer} />
           </div>
 
-          {!isPlaying && watchedSeconds === 0 && (
+          {!isPlaying && videoTime < 1 && (
             <motion.button
               className={styles.playButton}
               onClick={handlePlayVideo}
@@ -196,7 +211,7 @@ const Education = () => {
             </motion.button>
           )}
 
-          {!canProceed && watchedSeconds > 0 && (
+          {!canProceed && videoTime > 0 && (
             <motion.div
               className={styles.watchProgress}
               initial={{ opacity: 0 }}
@@ -205,7 +220,9 @@ const Education = () => {
               <div className={styles.progressBar}>
                 <div
                   className={styles.progressFill}
-                  style={{ width: `${(watchedSeconds / REQUIRED_WATCH_TIME) * 100}%` }}
+                  style={{
+                    width: `${Math.min(100, (videoTime / REQUIRED_WATCH_TIME) * 100)}%`,
+                  }}
                 />
               </div>
               <span className={styles.watchText}>
