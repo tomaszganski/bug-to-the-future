@@ -26,6 +26,10 @@ const useSurveyStore = create(
       // Has watched education
       hasWatchedEducation: false,
 
+      // YouTube education video: engaged watch time (s) and furthest playback position (s) for skip detection
+      educationTotalWatchSeconds: 0,
+      educationMaxPlaybackSeconds: 0,
+
       // Has completed post-survey
       hasCompletedPostSurvey: false,
 
@@ -78,11 +82,13 @@ const useSurveyStore = create(
           currentSlideIndex: 0,
         }),
 
-      completeEducation: () =>
+      completeEducation: ({ totalWatchSeconds = 0, maxPlaybackSeconds = 0 } = {}) =>
         set({
           hasWatchedEducation: true,
           currentSection: "postSurvey",
           currentQuestionIndex: 0,
+          educationTotalWatchSeconds: Number(totalWatchSeconds) || 0,
+          educationMaxPlaybackSeconds: Number(maxPlaybackSeconds) || 0,
         }),
 
       completePostSurvey: async () => {
@@ -96,7 +102,10 @@ const useSurveyStore = create(
         });
 
         try {
-          await submitSurveyToGoogleSheets(state.preAnswers, state.postAnswers);
+          await submitSurveyToGoogleSheets(state.preAnswers, state.postAnswers, {
+            totalWatchSeconds: state.educationTotalWatchSeconds,
+            maxPlaybackSeconds: state.educationMaxPlaybackSeconds,
+          });
           set({ hasSubmitted: true, isSubmitting: false });
         } catch (error) {
           set({ submissionError: error.message, isSubmitting: false });
@@ -108,7 +117,10 @@ const useSurveyStore = create(
         set({ isSubmitting: true, submissionError: null });
 
         try {
-          await submitSurveyToGoogleSheets(state.preAnswers, state.postAnswers);
+          await submitSurveyToGoogleSheets(state.preAnswers, state.postAnswers, {
+            totalWatchSeconds: state.educationTotalWatchSeconds,
+            maxPlaybackSeconds: state.educationMaxPlaybackSeconds,
+          });
           set({ hasSubmitted: true, isSubmitting: false });
         } catch (error) {
           set({ submissionError: error.message, isSubmitting: false });
@@ -130,6 +142,8 @@ const useSurveyStore = create(
           currentSlideIndex: 0,
           hasCompletedPreSurvey: false,
           hasWatchedEducation: false,
+          educationTotalWatchSeconds: 0,
+          educationMaxPlaybackSeconds: 0,
           hasCompletedPostSurvey: false,
           isSubmitting: false,
           submissionError: null,

@@ -170,6 +170,14 @@ const resources = {
         restart: "Wypełnij ponownie",
         submissionError: "Nie udało się zapisać odpowiedzi",
         retry: "Spróbuj ponownie",
+        contactIntro:
+          "Masz pytania dotyczące projektu? Skontaktuj się z nami.",
+        contactEmail: "bugtothefuture.project@gmail.com",
+        contactEmailAria: "Napisz na adres e-mail projektu",
+        contactIntro:
+          "Masz pytania dotyczące projektu? Skontaktuj się z nami.",
+        contactEmail: "bugtothefuture.project@gmail.com",
+        contactEmailAria: "Napisz na {{email}}",
         learnMoreTitle: "Dowiedz się więcej",
         learnMoreSubtitle:
           "Zebraliśmy tu wybrane materiały i informacje dotyczące białka przyszłości.",

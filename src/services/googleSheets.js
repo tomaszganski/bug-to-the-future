@@ -15,7 +15,11 @@ function formatBarriers(barriers) {
   return "";
 }
 
-export async function submitSurveyToGoogleSheets(preAnswers, postAnswers) {
+/**
+ * @param {object} [educationVideo] - From education step; append to sheet (e.g. columns after post answers).
+ *   Apps Script: e.postData.contents → JSON.parse → data.education.totalWatchSeconds, data.education.maxPlaybackSeconds
+ */
+export async function submitSurveyToGoogleSheets(preAnswers, postAnswers, educationVideo) {
   if (!GOOGLE_SHEETS_URL) {
     console.error("Google Sheets URL not configured");
     throw new Error("Google Sheets URL not configured");
@@ -26,6 +30,16 @@ export async function submitSurveyToGoogleSheets(preAnswers, postAnswers) {
   const payload = {
     userId,
     ipAddress,
+    education: {
+      totalWatchSeconds:
+        educationVideo && typeof educationVideo.totalWatchSeconds === "number"
+          ? educationVideo.totalWatchSeconds
+          : "",
+      maxPlaybackSeconds:
+        educationVideo && typeof educationVideo.maxPlaybackSeconds === "number"
+          ? educationVideo.maxPlaybackSeconds
+          : "",
+    },
     preAnswers: {
       willingness: preAnswers.willingness || "",
       barriers: formatBarriers(preAnswers.barriers),

@@ -8,6 +8,35 @@ import styles from './Closing.module.css';
 
 const materialCards = getMaterialCardsWithHref();
 
+const CONTACT_EMAIL = 'bugtothefuture.project@gmail.com';
+
+function EnvelopeIcon({ className, size }) {
+  return (
+    <svg
+      className={className}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <path
+        d="M4 4h16a2 2 0 0 1 2 2v.4l-10 6.25L2 6.4V6a2 2 0 0 1 2-2Z"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M22 8.27V18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.27"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 const Closing = () => {
   const { t } = useTranslation();
   const reset = useSurveyStore((state) => state.reset);
@@ -88,12 +117,30 @@ const Closing = () => {
           </motion.div>
         )}
 
+        <motion.div
+          className={styles.contactBlock}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55, duration: 0.5 }}
+        >
+          <EnvelopeIcon className={styles.contactIconLarge} size={44} />
+          <p className={styles.contactIntro}>{t('closing.contactIntro')}</p>
+          <a
+            className={styles.contactEmailRow}
+            href={`mailto:${CONTACT_EMAIL}`}
+            aria-label={t('closing.contactEmailAria', { email: CONTACT_EMAIL })}
+          >
+            <EnvelopeIcon className={styles.contactIconSmall} size={20} />
+            <span className={styles.contactEmailText}>{t('closing.contactEmail')}</span>
+          </a>
+        </motion.div>
+
         {materialCards.length > 0 && (
           <motion.div
             className={styles.materialsBlock}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
+            transition={{ delay: 0.65, duration: 0.5 }}
           >
             <h3 className={styles.learnMoreTitle}>{t('closing.learnMoreTitle')}</h3>
             <p className={styles.learnMoreSubtitle}>
@@ -135,7 +182,7 @@ const Closing = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            delay: materialCards.length > 0 ? 0.7 : 0.6,
+            delay: materialCards.length > 0 ? 0.75 : 0.65,
             duration: 0.5,
           }}
         >
@@ -188,7 +235,10 @@ const Closing = () => {
           onClick={handleRestart}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.85, duration: 0.5 }}
+          transition={{
+            delay: materialCards.length > 0 ? 0.9 : 0.8,
+            duration: 0.5,
+          }}
         >
           {t('closing.restart')}
         </motion.button>

@@ -20,12 +20,35 @@ const Education = () => {
   const intervalRef = useRef(null);
   const playerReadyRef = useRef(false);
   const shouldAutoplayAfterIntro = useRef(false);
+  /** Cumulative seconds the video was actually playing or buffering (detects seek/skip vs real viewing). */
+  const totalEngagedWatchRef = useRef(0);
+  const lastEngagedWatchTickRef = useRef(null);
+  const maxPlaybackRef = useRef(0);
 
   const syncFromPlayer = useCallback(() => {
     const player = playerRef.current;
     if (!player?.getCurrentTime) return;
     const t = player.getCurrentTime();
     setVideoTime(t);
+    maxPlaybackRef.current = Math.max(maxPlaybackRef.current, t);
+
+    const YT = window.YT;
+    if (YT && player.getPlayerState) {
+      const ps = player.getPlayerState();
+      const engaged =
+        ps === YT.PlayerState.PLAYING || ps === YT.PlayerState.BUFFERING;
+      if (engaged) {
+        const now = Date.now();
+        if (lastEngagedWatchTickRef.current != null) {
+          totalEngagedWatchRef.current +=
+            (now - lastEngagedWatchTickRef.current) / 1000;
+        }
+        lastEngagedWatchTickRef.current = now;
+      } else {
+        lastEngagedWatchTickRef.current = null;
+      }
+    }
+
     if (t >= REQUIRED_WATCH_TIME) {
       setCanProceed(true);
       if (intervalRef.current) {
@@ -117,7 +140,11 @@ const Education = () => {
   };
 
   const handleFinish = () => {
-    completeEducation();
+    const round1 = (n) => Math.round(n * 10) / 10;
+    completeEducation({
+      totalWatchSeconds: round1(totalEngagedWatchRef.current),
+      maxPlaybackSeconds: Math.round(maxPlaybackRef.current),
+    });
   };
 
   const remainingSeconds = Math.max(0, Math.ceil(REQUIRED_WATCH_TIME - videoTime));
