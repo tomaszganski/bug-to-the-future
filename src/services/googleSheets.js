@@ -17,7 +17,7 @@ function formatBarriers(barriers) {
 
 /**
  * @param {object} [educationVideo] - From education step; append to sheet (e.g. columns after post answers).
- *   Apps Script: e.postData.contents → JSON.parse → data.education.totalWatchSeconds, data.education.maxPlaybackSeconds
+ *   Apps Script: JSON.parse → data.client (userAgent, browser, deviceType, device, os), data.education.*
  */
 export async function submitSurveyToGoogleSheets(preAnswers, postAnswers, educationVideo) {
   if (!GOOGLE_SHEETS_URL) {
@@ -25,11 +25,12 @@ export async function submitSurveyToGoogleSheets(preAnswers, postAnswers, educat
     throw new Error("Google Sheets URL not configured");
   }
 
-  const { userId, ipAddress } = await getUserIdentification();
+  const { userId, ipAddress, client } = await getUserIdentification();
 
   const payload = {
     userId,
     ipAddress,
+    client,
     education: {
       totalWatchSeconds:
         educationVideo && typeof educationVideo.totalWatchSeconds === "number"
@@ -56,7 +57,7 @@ export async function submitSurveyToGoogleSheets(preAnswers, postAnswers, educat
     },
   };
 
-  const response = await fetch(GOOGLE_SHEETS_URL, {
+  await fetch(GOOGLE_SHEETS_URL, {
     method: "POST",
     mode: "no-cors",
     headers: {
