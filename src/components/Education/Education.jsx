@@ -24,6 +24,7 @@ const Education = () => {
   const totalEngagedWatchRef = useRef(0);
   const lastEngagedWatchTickRef = useRef(null);
   const maxPlaybackRef = useRef(0);
+  const finishOnceRef = useRef(false);
 
   const syncFromPlayer = useCallback(() => {
     const player = playerRef.current;
@@ -58,6 +59,16 @@ const Education = () => {
     }
   }, []);
 
+  const handleFinish = useCallback(() => {
+    if (finishOnceRef.current) return;
+    finishOnceRef.current = true;
+    const round1 = (n) => Math.round(n * 10) / 10;
+    completeEducation({
+      totalWatchSeconds: round1(totalEngagedWatchRef.current),
+      maxPlaybackSeconds: Math.round(maxPlaybackRef.current),
+    });
+  }, [completeEducation]);
+
   const handlePlayerStateChange = useCallback((event) => {
     const YT = window.YT;
     const active =
@@ -76,8 +87,26 @@ const Education = () => {
         intervalRef.current = null;
       }
       syncFromPlayer();
+
+      if (event.data === YT.PlayerState.ENDED) {
+        const player = playerRef.current;
+        if (!player?.getCurrentTime || !player.getDuration || finishOnceRef.current) return;
+        const t = player.getCurrentTime();
+        const duration = player.getDuration();
+        const atEnd =
+          Number.isFinite(duration) && duration > 0 && t >= duration - 2;
+        const pastRequired = t >= REQUIRED_WATCH_TIME;
+        const shortVideoToEnd =
+          Number.isFinite(duration) &&
+          duration > 0 &&
+          duration <= REQUIRED_WATCH_TIME &&
+          atEnd;
+        if (pastRequired || shortVideoToEnd) {
+          handleFinish();
+        }
+      }
     }
-  }, [syncFromPlayer]);
+  }, [syncFromPlayer, handleFinish]);
 
   const handlePlayerReady = useCallback(() => {
     playerReadyRef.current = true;
@@ -137,14 +166,6 @@ const Education = () => {
       shouldAutoplayAfterIntro.current = false;
       playerRef.current?.playVideo?.();
     }
-  };
-
-  const handleFinish = () => {
-    const round1 = (n) => Math.round(n * 10) / 10;
-    completeEducation({
-      totalWatchSeconds: round1(totalEngagedWatchRef.current),
-      maxPlaybackSeconds: Math.round(maxPlaybackRef.current),
-    });
   };
 
   const remainingSeconds = Math.max(0, Math.ceil(REQUIRED_WATCH_TIME - videoTime));
@@ -259,15 +280,17 @@ const Education = () => {
           )}
 
           {canProceed && (
-            <motion.div
+            <motion.button
+              type="button"
               className={styles.proceedSection}
+              onClick={handleFinish}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <span className={styles.checkmark}>✓</span>
+              <span className={styles.checkmark} aria-hidden>✓</span>
               <span className={styles.readyText}>{t('education.readyToProceed')}</span>
-            </motion.div>
+            </motion.button>
           )}
         </motion.div>
 

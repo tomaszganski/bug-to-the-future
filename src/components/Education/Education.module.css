@@ -266,12 +266,25 @@
 }
 
 .proceedSection {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   background: rgba(76, 175, 80, 0.1);
   border-radius: 100px;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  transition: background var(--transition-smooth), transform var(--transition-smooth);
+}
+
+.proceedSection:hover {
+  background: rgba(76, 175, 80, 0.18);
+}
+
+.proceedSection:focus-visible {
+  outline: 2px solid #4caf50;
+  outline-offset: 2px;
 }
 
 .checkmark {

@@ -218,18 +218,6 @@
   background: color-mix(in srgb, var(--warm-gold) 38%, white);
   border: 1px solid color-mix(in srgb, var(--warm-gold) 55%, transparent);
   border-radius: 100px;
-  transition:
-    background var(--transition-smooth),
-    transform var(--transition-smooth),
-    box-shadow var(--transition-smooth),
-    border-color var(--transition-smooth);
-}
-
-.contactEmailRow:hover {
-  background: var(--warm-gold);
-  border-color: color-mix(in srgb, var(--warm-gold) 80%, var(--deep-grain));
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
 }
 
 .contactEmailRow:focus-visible {
