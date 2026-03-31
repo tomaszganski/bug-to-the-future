@@ -63,7 +63,6 @@ const Closing = () => {
   return (
     <section className={styles.closing}>
       <div className={styles.background}>
-        <div className={styles.confetti} />
         <div className={styles.gradientOrb1} />
         <div className={styles.gradientOrb2} />
       </div>
@@ -123,14 +122,16 @@ const Closing = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55, duration: 0.5 }}
         >
-          <EnvelopeIcon className={styles.contactIconLarge} size={44} />
+          <div className={styles.contactIconWrap} aria-hidden>
+            <EnvelopeIcon className={styles.contactIconLarge} size={40} />
+          </div>
           <p className={styles.contactIntro}>{t('closing.contactIntro')}</p>
           <a
             className={styles.contactEmailRow}
             href={`mailto:${CONTACT_EMAIL}`}
             aria-label={t('closing.contactEmailAria', { email: CONTACT_EMAIL })}
           >
-            <EnvelopeIcon className={styles.contactIconSmall} size={20} />
+            <EnvelopeIcon className={styles.contactIconSmall} size={18} />
             <span className={styles.contactEmailText}>{t('closing.contactEmail')}</span>
           </a>
         </motion.div>

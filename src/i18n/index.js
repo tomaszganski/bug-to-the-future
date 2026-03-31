@@ -173,10 +173,6 @@ const resources = {
         contactIntro:
           "Masz pytania dotyczące projektu? Skontaktuj się z nami.",
         contactEmail: "bugtothefuture.project@gmail.com",
-        contactEmailAria: "Napisz na adres e-mail projektu",
-        contactIntro:
-          "Masz pytania dotyczące projektu? Skontaktuj się z nami.",
-        contactEmail: "bugtothefuture.project@gmail.com",
         contactEmailAria: "Napisz na {{email}}",
         learnMoreTitle: "Dowiedz się więcej",
         learnMoreSubtitle:

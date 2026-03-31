@@ -14,30 +14,6 @@
   inset: 0;
 }
 
-.confetti {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle at 20% 30%, var(--warm-gold) 2px, transparent 2px),
-    radial-gradient(circle at 80% 20%, var(--cricket-brown) 3px, transparent 3px),
-    radial-gradient(circle at 40% 70%, var(--soft-wood) 2px, transparent 2px),
-    radial-gradient(circle at 70% 60%, var(--warm-gold) 2px, transparent 2px),
-    radial-gradient(circle at 10% 80%, var(--cricket-brown) 3px, transparent 3px),
-    radial-gradient(circle at 90% 80%, var(--soft-wood) 2px, transparent 2px);
-  background-size: 100px 100px;
-  opacity: 0.6;
-  animation: confettiFloat 20s linear infinite;
-}
-
-@keyframes confettiFloat {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-100px);
-  }
-}
-
 .gradientOrb1 {
   position: absolute;
   width: 400px;
@@ -180,6 +156,98 @@
   margin: 0;
 }
 
+/* Contact */
+.contactBlock {
+  width: 100%;
+  max-width: 26rem;
+  margin-inline: auto;
+  padding: 1.75rem 1.35rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.85rem;
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    color-mix(in srgb, var(--fresh-mint) 12%, white) 100%
+  );
+  border: 1px solid rgba(78, 58, 40, 0.1);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+.contactIconWrap {
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--fresh-mint) 50%, var(--off-white));
+  color: var(--cricket-brown);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.contactIconLarge {
+  display: block;
+}
+
+.contactIntro {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  max-width: 22rem;
+}
+
+.contactEmailRow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  max-width: 100%;
+  margin-top: 0.15rem;
+  padding: 0.7rem 1.15rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--deep-grain);
+  text-decoration: none;
+  background: color-mix(in srgb, var(--warm-gold) 38%, white);
+  border: 1px solid color-mix(in srgb, var(--warm-gold) 55%, transparent);
+  border-radius: 100px;
+  transition:
+    background var(--transition-smooth),
+    transform var(--transition-smooth),
+    box-shadow var(--transition-smooth),
+    border-color var(--transition-smooth);
+}
+
+.contactEmailRow:hover {
+  background: var(--warm-gold);
+  border-color: color-mix(in srgb, var(--warm-gold) 80%, var(--deep-grain));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.contactEmailRow:focus-visible {
+  outline: 2px solid var(--cricket-brown);
+  outline-offset: 3px;
+}
+
+.contactIconSmall {
+  display: block;
+  flex-shrink: 0;
+}
+
+.contactEmailText {
+  overflow-wrap: anywhere;
+  text-align: center;
+  line-height: 1.35;
+}
+
 .shareBlock {
   display: flex;
   flex-direction: column;
@@ -285,8 +353,73 @@
 }
 
 @media (max-width: 767px) {
+  .closing {
+    padding: 0.75rem max(0.5rem, env(safe-area-inset-left))
+      1.25rem max(0.5rem, env(safe-area-inset-right));
+  }
+
+  .container {
+    padding: 1.25rem max(0.75rem, env(safe-area-inset-left)) 1.35rem
+      max(0.75rem, env(safe-area-inset-right));
+    border-radius: 18px;
+    margin-top: 0.25rem;
+    gap: 1rem;
+  }
+
+  .successIcon {
+    width: 100px;
+    height: 100px;
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    font-size: clamp(1.1rem, 4.2vw, 1.35rem);
+  }
+
+  .contactBlock {
+    max-width: none;
+    width: 100%;
+    padding: 1.15rem max(0.5rem, env(safe-area-inset-left)) 1.1rem
+      max(0.5rem, env(safe-area-inset-right));
+    border-radius: 16px;
+  }
+
+  .contactIntro {
+    max-width: none;
+    font-size: 0.95rem;
+  }
+
+  .contactEmailRow {
+    width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    padding: 0.65rem 0.7rem;
+    border-radius: 14px;
+    gap: 0.35rem;
+  }
+
+  .contactEmailText {
+    font-size: max(0.78rem, 2.85vw);
+    line-height: 1.4;
+  }
+
+  .shareBlock {
+    margin-top: 1.35rem;
+  }
+
+  .copyButton {
+    width: 100%;
+    max-width: 22rem;
+    justify-content: center;
+    padding: 0.75rem 1.1rem;
+  }
+
   .materialsGrid {
     grid-template-columns: 1fr;
+  }
+
+  .materialCard {
+    padding: 1.15rem 0.85rem 1.1rem;
   }
 }
 
