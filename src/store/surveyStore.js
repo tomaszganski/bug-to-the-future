@@ -75,12 +75,17 @@ const useSurveyStore = create(
 
       resetSlideIndex: () => set({ currentSlideIndex: 0 }),
 
-      completePreSurvey: () =>
+      completePreSurvey: () => {
+        const state = get();
+        void submitSurveyToGoogleSheets(state.preAnswers, {}, undefined, "pre").catch(
+          (err) => console.error("Pre-survey Google Sheets submit failed:", err),
+        );
         set({
           hasCompletedPreSurvey: true,
           currentSection: "education",
           currentSlideIndex: 0,
-        }),
+        });
+      },
 
       completeEducation: ({ totalWatchSeconds = 0, maxPlaybackSeconds = 0 } = {}) =>
         set({
@@ -102,10 +107,15 @@ const useSurveyStore = create(
         });
 
         try {
-          await submitSurveyToGoogleSheets(state.preAnswers, state.postAnswers, {
-            totalWatchSeconds: state.educationTotalWatchSeconds,
-            maxPlaybackSeconds: state.educationMaxPlaybackSeconds,
-          });
+          await submitSurveyToGoogleSheets(
+            state.preAnswers,
+            state.postAnswers,
+            {
+              totalWatchSeconds: state.educationTotalWatchSeconds,
+              maxPlaybackSeconds: state.educationMaxPlaybackSeconds,
+            },
+            "complete",
+          );
           set({ hasSubmitted: true, isSubmitting: false });
         } catch (error) {
           set({ submissionError: error.message, isSubmitting: false });
@@ -117,10 +127,15 @@ const useSurveyStore = create(
         set({ isSubmitting: true, submissionError: null });
 
         try {
-          await submitSurveyToGoogleSheets(state.preAnswers, state.postAnswers, {
-            totalWatchSeconds: state.educationTotalWatchSeconds,
-            maxPlaybackSeconds: state.educationMaxPlaybackSeconds,
-          });
+          await submitSurveyToGoogleSheets(
+            state.preAnswers,
+            state.postAnswers,
+            {
+              totalWatchSeconds: state.educationTotalWatchSeconds,
+              maxPlaybackSeconds: state.educationMaxPlaybackSeconds,
+            },
+            "complete",
+          );
           set({ hasSubmitted: true, isSubmitting: false });
         } catch (error) {
           set({ submissionError: error.message, isSubmitting: false });

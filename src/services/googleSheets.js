@@ -19,7 +19,15 @@ function formatBarriers(barriers) {
  * @param {object} [educationVideo] - From education step; append to sheet (e.g. columns after post answers).
  *   Apps Script: JSON.parse → data.client (userAgent, browser, deviceType, device, os), data.education.*
  */
-export async function submitSurveyToGoogleSheets(preAnswers, postAnswers, educationVideo) {
+/**
+ * @param {"pre" | "complete"} [phase] - "pre" after pre-survey (Tab1); "complete" after full survey (Tab2)
+ */
+export async function submitSurveyToGoogleSheets(
+  preAnswers,
+  postAnswers,
+  educationVideo,
+  phase = "complete",
+) {
   if (!GOOGLE_SHEETS_URL) {
     console.error("Google Sheets URL not configured");
     throw new Error("Google Sheets URL not configured");
@@ -28,6 +36,7 @@ export async function submitSurveyToGoogleSheets(preAnswers, postAnswers, educat
   const { userId, ipAddress, client } = await getUserIdentification();
 
   const payload = {
+    phase,
     userId,
     ipAddress,
     client,
